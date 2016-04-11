@@ -1,19 +1,20 @@
 {% extends 'blog/base.html' %}
 {% block content %}
     <div class="row">
-        <h1>{{ post.title }}</h1>
+        <h1>{{ post.title }}<a class="btn btn-default" href="{% url 'post_edit' pk=post.pk %}"><span class="glyphicon glyphicon-pencil"></span></a></h1>
         <p>{{ post.published_date }}</p>
         <p>{{ post.text|linebreaks }}</p>
     </div>
     
     <div>
-        <a class="btn btn-default" href="{% url 'post_edit' pk=post.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
+        
         
     </div>
-    
+
     <div class="row">
+        <h2>Comentarios</h2>
         {% for comment in comments %}
-            <p>{{ comment.published_date }}</p>
+            <p>{{ comment.created_date }}</p>
             <p>{{ comment.text|linebreaks }}</p>
         {% endfor %}
     </div>
