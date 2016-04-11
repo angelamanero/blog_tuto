@@ -1,9 +1,28 @@
 {% extends 'blog/base.html' %}
 {% block content %}
-	<div>
-    	<h1>{{ post.title }}</h1>
-   		<p>{{ post.published_date }}</p>
-    	<p>{{ post.text|linebreaks }}</p>
-        <a class="btn btn-default" href="{% url 'post_edit' pk=post.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
+    <div class="row">
+        <h1>{{ post.title }}</h1>
+        <p>{{ post.published_date }}</p>
+        <p>{{ post.text|linebreaks }}</p>
     </div>
+    
+    <div>
+        <a class="btn btn-default" href="{% url 'post_edit' pk=post.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
+        
+    </div>
+    
+    <div class="row">
+        {% for comment in comments %}
+            <p>{{ comment.published_date }}</p>
+            <p>{{ comment.text|linebreaks }}</p>
+        {% endfor %}
+    </div>
+    
+    <div>
+        <h1>New post</h1>
+        <form method="POST" class="comment-form">{% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Save</button>
+    </div>
+
 {% endblock %}
