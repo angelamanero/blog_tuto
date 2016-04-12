@@ -13,15 +13,18 @@
             {% for comment in comments %}
             <p>{{ comment.created_date }}</p>
             <p>{{ comment.text|linebreaks }}</p>
-        {% endfor %}
+            {% endfor %}
     </div>
     
     <div>
-        <h1>New post</h1>
-        <form method="POST" class="comment-form">
-        {% csrf_token %}
-        {{ form | crispy }}
-        <button type="submit">Save</button>
+        {% if user.is_authenticated %}
+            <h1>New coment</h1>
+            <form method="POST" class="comment-form">
+            {% csrf_token %}
+            {{ form | crispy }}
+            <button type="submit">Save</button>
+        {% endif %}
+        
     </div>
 
 {% endblock %}
