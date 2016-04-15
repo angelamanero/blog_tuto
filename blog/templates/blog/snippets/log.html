@@ -1,0 +1,43 @@
+{% load crispy_forms_tags %}
+              
+
+{% if next %}
+    {% if user.is_authenticated %}
+    <p>Your account doesn't have access to this page. To proceed,
+    please login with an account that has access.</p>
+    {% else %}
+    <p>Please login to see this page.</p>
+    {% endif %}
+{% endif %}
+
+<!--<form method="post" action="{% url 'django.contrib.auth.views.login' %}">
+{% csrf_token %}
+{{form|crispy}}
+<input type="submit" value="login" />
+<input type="hidden" name="next" value="{{ next }}" />
+</form>-->
+
+    <form class="navbar-form navbar-right" role="search" method="post" action="{% url 'django.contrib.auth.views.login'%}">
+        <div class="form-group">
+                <input type="text" placeholder="Username" class="form-control" name="username">
+            </div>
+              <div class="form-group">
+                <input type="password" placeholder="Password" class="form-control" name="password">
+              </div>
+            {% csrf_token %}
+          <button type="submit" class="glyphicon glyphicon-user btn btn-success"> Login</button>
+          
+          
+          {# Assumes you setup the password_reset view in your URLconf #}
+        <p><a href="{% url 'password_reset' %}">Ha olvidado la contraseña?</a></p>
+    </form>
+    {% if form.errors %}
+        <div class="navbar-form navbar-right p" style="color: red">¡Tu usuario y contraseña son incorrectos, intentelo de nuevo.!</div>
+        <!--<div>
+            <script type="text/javascript">
+                alert("¡Tu usuario y contraseña son incorrectos, intentelo de nuevo.! ")
+            </script>
+        </div>-->
+    
+
+    {% endif %} 
